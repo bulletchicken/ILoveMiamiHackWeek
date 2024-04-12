@@ -8,7 +8,15 @@ import numpy as np
 from gtts import gTTS
 
 
-api_key = "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"
+from pathlib import Path
+from openai import OpenAI
+
+
+
+
+
+api_key = ""
+client = OpenAI(api_key=api_key)
 
 cam = cv2.VideoCapture(0)
 r = sr.Recognizer()
@@ -20,6 +28,7 @@ def encode_image(image_path):
 def analyzeVideo(prompt):
   global ret, img
   ret, img = cam.read()
+
   os.remove("picture.png") #reset
   img_name = "picture.png".format(0)
 
@@ -68,26 +77,35 @@ def analyzeVideo(prompt):
 
 
 def listen_for_wake_word(source):
-  print("Listening for 'Hey'...")
 
   while True:
       audio = r.listen(source)
       try:
           text = r.recognize_google(audio)
           print(text)
-          if "hey" in text.lower():
+          if "lucy" in text.lower():
               print("hit")
 
               response_text = analyzeVideo(text)
+              toVoice(response_text)
               print(response_text)
-              tts = gTTS(text=response_text, lang='en', slow=False)
-
-              tts.save("speech.mp3")  # Save the generated speech as a temporary MP3 file
-              os.system("afplay speech.mp3")  # Use the 'afplay' command to play the MP3 file
 
               break
       except sr.UnknownValueError:
           pass
+
+
+def toVoice(text):
+    
+  speech_file_path = Path(__file__).parent / "speech.mp3"
+  response = client.audio.speech.create(
+    model="tts-1",
+    voice="nova",
+    input=text
+  )
+
+  response.stream_to_file(speech_file_path)
+  os.system("afplay speech.mp3")  # Use the 'afplay' command to play the MP3 file
 
 with sr.Microphone() as source:
   listen_for_wake_word(source)
