@@ -6,7 +6,7 @@
 Lucy is an **AI-powered accessibility assistant** designed to provide internet accessibility and enhanced mobility support for people with physical disabilities. Inspired by service animals, Lucy stays **in the user’s field of view**, offering real-time assistance through its **camera and built-in speaker**.
 
 ## 🎥 Demo Video
-[![Watch the Video](https://img.youtube.com/vi/YOUR_VIDEO_ID_HERE/maxresdefault.jpg)](https://www.youtube.com/watch?v=YOUR_VIDEO_ID_HERE)
+[![Watch the Video](https://img.youtube.com/vi/GRENRaAo0oI/maxresdefault.jpg)](https://www.youtube.com/watch?v=GRENRaAo0oI)
 
 ---
 
